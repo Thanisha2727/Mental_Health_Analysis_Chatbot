@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="MediCare AI — Your AI-powered health assistant for patients and doctors." />
+  <title>MediCare AI — Healthcare Chatbot</title>
+  <link rel="stylesheet" href="styles.css" />
+  <!-- Favicon placeholder -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏥</text></svg>" />
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     OVERLAY for mobile sidebar
+     ═══════════════════════════════════════════════════════════════════════ -->
+<div class="overlay" id="overlay"></div>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     ROLE SELECTION SCREEN
+     Shown first. User picks Patient or Doctor before entering the app.
+     ═══════════════════════════════════════════════════════════════════════ -->
+<div id="role-screen">
+  <div class="role-card">
+
+    <!-- Logo -->
+    <div class="role-logo">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+      </svg>
+    </div>
+
+    <h1>MediCare AI</h1>
+    <p>Your intelligent health companion. Select your role to personalise your experience.</p>
+
+    <!-- Role Buttons -->
+    <div class="role-options">
+
+      <button class="role-btn patient" data-role="patient">
+        <div class="role-icon">🧑‍⚕️</div>
+        <span>Patient</span>
+        <small>General health guidance</small>
+      </button>
+
+      <button class="role-btn doctor" data-role="doctor">
+        <div class="role-icon">🩺</div>
+        <span>Doctor</span>
+        <small>Clinical decision support</small>
+      </button>
+
+    </div>
+
+    <!-- Disclaimer -->
+    <p class="role-disclaimer">
+      ⚠️ This AI assistant provides general information only and is <strong>not a substitute</strong>
+      for professional medical advice, diagnosis, or treatment. Always consult a qualified healthcare provider.
+    </p>
+
+    <!-- Enter Button -->
+    <button class="btn-enter" id="btn-enter">Enter MediCare AI →</button>
+
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     MAIN APP SHELL
+     ═══════════════════════════════════════════════════════════════════════ -->
+<div id="app">
+
+  <!-- ────────────────────────────────────────────────────────────────────
+       SIDEBAR
+       ──────────────────────────────────────────────────────────────────── -->
+  <aside class="sidebar">
+
+    <!-- Brand / logo -->
+    <div class="sidebar-header">
+      <div class="brand">
+        <div class="brand-icon">🏥</div>
+        <div class="brand-text">
+          MediCare AI
+          <small>Powered by Pollinations</small>
+        </div>
+      </div>
+      <div class="role-badge" id="role-badge">🧑‍⚕️ Patient Mode</div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="sidebar-nav">
+
+      <div class="nav-label">Navigation</div>
+
+      <button class="nav-btn active" data-tab="chat">
+        <span class="nav-icon">💬</span>
+        Chat Assistant
+      </button>
+
+      <button class="nav-btn" data-tab="symptoms">
+        <span class="nav-icon">🩺</span>
+        Symptom Checker
+      </button>
+
+      <button class="nav-btn" data-tab="info">
+        <span class="nav-icon">📚</span>
+        Resources
+      </button>
+
+      <div class="nav-label" style="margin-top:12px">Tools</div>
+
+      <button class="nav-btn" id="btn-new-chat-nav" onclick="startNewChat()">
+        <span class="nav-icon">✨</span>
+        New Conversation
+      </button>
+
+    </nav>
+
+    <!-- Footer -->
+    <div class="sidebar-footer">
+      <button class="btn-new-chat" id="btn-new-chat">
+        ✨ New Chat
+      </button>
+      <button class="btn-switch-role" id="btn-switch-role">
+        ⇄ Switch Role
+      </button>
+    </div>
+
+  </aside>
+
+
+  <!-- ────────────────────────────────────────────────────────────────────
+       MAIN CONTENT AREA
+       ──────────────────────────────────────────────────────────────────── -->
+  <main class="main-area">
+
+    <!-- Header bar -->
+    <header class="chat-header">
+      <button class="menu-toggle" id="menu-toggle" aria-label="Open menu">☰</button>
+
+      <div class="header-info">
+        <div class="header-title" id="header-title">Health Assistant</div>
+        <div class="header-sub">
+          <span class="status-dot"></span>
+          AI is online · Powered by Pollinations AI
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <button class="icon-btn" title="Clear chat" onclick="startNewChat()">🗑️</button>
+      </div>
+    </header>
+
+
+    <!-- ──────────────────────────────────────────────────────────────────
+         TAB 1: CHAT
+         ────────────────────────────────────────────────────────────────── -->
+    <div class="tab-panel active" data-panel="chat">
+
+      <!-- Messages scroll area -->
+      <div class="messages-area" id="messages-area">
+
+        <!-- Welcome state (hidden after first message) -->
+        <div class="welcome-block" id="welcome-block">
+          <div class="welcome-avatar">🏥</div>
+          <h2>Hello! I'm MediCare AI</h2>
+          <p>
+            Ask me anything about your health. I'm here to provide guidance,
+            answer questions, and support your wellbeing.
+          </p>
+
+          <!-- Suggested prompts grid (filled by JS) -->
+          <div class="suggested-prompts" id="prompts-grid">
+            <!-- JS renders prompt chips here -->
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Input area -->
+      <div class="input-area">
+        <div class="input-wrapper">
+          <textarea
+            id="chat-input"
+            placeholder="Ask a health question… (Shift+Enter for new line)"
+            rows="1"
+            aria-label="Chat input"
+            maxlength="2000"
+          ></textarea>
+
+          <div class="input-actions">
+            <!-- Doc mode toggle -->
+            <button class="mode-toggle" id="mode-toggle" title="Toggle document mode">
+              📄 <span id="mode-label">Doc Mode</span>
+            </button>
+
+            <!-- Send button -->
+            <button class="send-btn" id="send-btn" aria-label="Send message" title="Send (Enter)">
+              ➤
+            </button>
+          </div>
+        </div>
+        <div class="input-hint">
+          Press <kbd>Enter</kbd> to send · <kbd>Shift+Enter</kbd> for new line ·
+          Toggle 📄 for document Q&amp;A mode
+        </div>
+      </div>
+
+    </div><!-- /TAB 1 -->
+
+
+    <!-- ──────────────────────────────────────────────────────────────────
+         TAB 2: SYMPTOM CHECKER
+         ────────────────────────────────────────────────────────────────── -->
+    <div class="tab-panel" data-panel="symptoms">
+      <div class="symptom-panel">
+
+        <div class="panel-header">
+          <h2>🩺 Symptom Checker</h2>
+          <p>Select your symptoms, set the severity, and let AI analyse them for you.</p>
+        </div>
+
+        <!-- Symptom chips grid (filled by JS) -->
+        <div class="symptom-grid" id="symptom-grid"></div>
+
+        <!-- Severity -->
+        <div class="severity-section">
+          <label>How severe are your symptoms?</label>
+          <div class="severity-buttons">
+            <button class="sev-btn mild"     data-sev="mild">😌 Mild</button>
+            <button class="sev-btn moderate" data-sev="moderate">😟 Moderate</button>
+            <button class="sev-btn severe"   data-sev="severe">😰 Severe</button>
+          </div>
+        </div>
+
+        <!-- Duration -->
+        <div class="duration-row">
+          <div class="form-group">
+            <label for="duration-val">Duration</label>
+            <input id="duration-val" type="number" min="1" max="365" value="1" />
+          </div>
+          <div class="form-group">
+            <label for="duration-unit">Unit</label>
+            <select id="duration-unit">
+              <option value="hours">Hours</option>
+              <option value="days" selected>Days</option>
+              <option value="weeks">Weeks</option>
+              <option value="months">Months</option>
+            </select>
+          </div>
+        </div>
+
+        <button class="btn-analyze" id="btn-analyze">
+          🔍 Analyse My Symptoms
+        </button>
+
+        <p style="margin-top:14px; font-size:0.78rem; color:#a0aec0; text-align:center;">
+          This is not a medical diagnosis. Always consult a licensed physician for medical advice.
+        </p>
+
+      </div>
+    </div><!-- /TAB 2 -->
+
+
+    <!-- ──────────────────────────────────────────────────────────────────
+         TAB 3: RESOURCES / INFO
+         ────────────────────────────────────────────────────────────────── -->
+    <div class="tab-panel" data-panel="info">
+      <div class="info-panel">
+
+        <div class="panel-header">
+          <h2>📚 Health Resources</h2>
+          <p>Quick references and emergency contacts.</p>
+        </div>
+
+        <!-- Emergency card -->
+        <div class="info-card emergency-card">
+          <h3>🚨 Emergency Numbers (India)</h3>
+          <ul>
+            <li>🆘 National Emergency &nbsp;·&nbsp; <strong>112</strong></li>
+            <li>🏥 Ambulance &nbsp;·&nbsp; <strong>102</strong></li>
+            <li>🔥 Fire &nbsp;·&nbsp; <strong>101</strong></li>
+            <li>👮 Police &nbsp;·&nbsp; <strong>100</strong></li>
+          </ul>
+        </div>
+
+        <!-- Mental health -->
+        <div class="info-card">
+          <h3>🧠 Mental Health Helplines</h3>
+          <ul>
+            <li>🇮🇳 iCall &nbsp;·&nbsp; <strong>9152987821</strong></li>
+            <li>🇮🇳 AASRA &nbsp;·&nbsp; <strong>9820466627</strong></li>
+            <li>🇮🇳 Vandrevala Foundation &nbsp;·&nbsp; <strong>1860-2662-345</strong> (24/7)</li>
+            <li>🌍 <a href="https://findahelpline.com" target="_blank" rel="noopener">findahelpline.com</a> (International)</li>
+          </ul>
+        </div>
+
+        <!-- Health tips -->
+        <div class="info-card">
+          <h3>💡 General Health Tips</h3>
+          <ul>
+            <li>💧 Drink at least 8 glasses of water daily</li>
+            <li>🏃 Aim for 30 minutes of exercise, 5 days a week</li>
+            <li>😴 Get 7–9 hours of quality sleep each night</li>
+            <li>🥦 Eat a balanced diet with fruits and vegetables</li>
+            <li>🧴 Wash hands regularly to prevent infections</li>
+            <li>🩺 Schedule regular check-ups with your doctor</li>
+          </ul>
+        </div>
+
+        <!-- Useful links -->
+        <div class="info-card">
+          <h3>🔗 Trusted Health Sources</h3>
+          <ul>
+            <li>🌐 <a href="https://www.who.int" target="_blank" rel="noopener">World Health Organization (WHO)</a></li>
+            <li>🌐 <a href="https://www.cdc.gov" target="_blank" rel="noopener">Centers for Disease Control (CDC)</a></li>
+            <li>🌐 <a href="https://www.mohfw.gov.in" target="_blank" rel="noopener">Ministry of Health — India</a></li>
+            <li>🌐 <a href="https://medlineplus.gov" target="_blank" rel="noopener">MedlinePlus (NIH)</a></li>
+          </ul>
+        </div>
+
+        <!-- Disclaimer -->
+        <div class="info-card" style="border-color:#fbd38d; background:#fffbeb;">
+          <h3 style="color:#d97706;">⚠️ Important Disclaimer</h3>
+          <ul>
+            <li>
+              MediCare AI provides <strong>general health information only</strong>.
+              It does not diagnose, treat, or prescribe. Always consult a qualified
+              medical professional for personal health decisions.
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div><!-- /TAB 3 -->
+
+  </main>
+</div><!-- /#app -->
+
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     ERROR / SUCCESS TOAST
+     ═══════════════════════════════════════════════════════════════════════ -->
+<div id="error-toast" role="alert" aria-live="polite">
+  <span>⚠️</span>
+  <span id="toast-msg">Something went wrong.</span>
+</div>
+
+
+<!-- Script -->
+<script src="chatbot.js"></script>
+
+</body>
+</html>
