@@ -1,0 +1,18 @@
+# MediCare AI — Backend Dependencies
+# Install with: pip install -r requirements.txt
+
+# Web framework
+fastapi==0.111.0
+uvicorn[standard]==0.29.0
+
+# Data validation
+pydantic==2.7.1
+
+# HTTP requests (for Pollinations AI API calls)
+requests==2.31.0
+
+# Environment variable management
+python-dotenv==1.0.1
+
+# Multipart form support (required by FastAPI)
+python-multipart==0.0.9

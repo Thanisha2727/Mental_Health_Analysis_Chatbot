@@ -1,0 +1,58 @@
+timestamp,session_id,role,query,response,crisis_flag
+2026-04-20T21:51:57.354061,cabd6d83-a53f-49d5-b0c3-655895d4b32e,patient,i am feeling tired,"I’m sorry to hear you’re feeling drained. Fatigue can sneak in from many places—maybe you’ve had a long day, a shift change, or just haven’t slept enough last night. A quick few ideas to help you recharge:
+
+| Quick Boost | Why It Helps | How to Do It |
+|-------------|--------------|--------------|
+| **Hydrate** | Dehydration often feels like low energy. | Sip water slowly—aim for a glass every hour. |
+| **Move a bit** | Light activity (stretching, a short walk) can jump‑start circulation. | Even a 5‑minute stretch in your chair counts. |
+| **Short power nap** | A 10–20 minute nap can refresh without messing up nighttime sleep. | Find a quiet spot, set an alarm, and let your mind drift. |
+| **Bright light** | Natural light cues the brain to stay alert. | Open curtains or step outside for a few minutes. |
+| **Balanced snack** | A mix of protein, healthy fat, and a touch of carbs keeps blood sugar steady. | Try an apple slice with peanut butter or a handful of nuts. |
+| **Mindful breathing** | A few slow breaths can shift focus and reduce fatigue. | Inhale for 4 counts, hold 2, exhale for 6—repeat 3–4 times. |
+
+If the tiredness lingers, feels worse than a simple lack of sleep, or is paired with other symptoms (like headaches, dizziness, or mood changes), it might be worth chatting with a healthcare professional to rule out anything more underlying.
+
+Take a moment for yourself right now—catch a breath, stretch, or grab a glass of water. It’s okay to pause and recharge. If this keeps happening, it’s a good idea to talk with a doctor for a deeper look. Take care!",False
+2026-04-20T21:52:26.126996,cabd6d83-a53f-49d5-b0c3-655895d4b32e,patient,how r u,"Hey there! I’m just an AI, so I don’t have feelings in the usual sense, but I’m all set to help you out. What’s on your mind today?",False
+2026-04-20T21:53:01.145024,cabd6d83-a53f-49d5-b0c3-655895d4b32e,patient,"I have the following symptoms: Stomach pain. 
+Severity: severe. 
+Duration: 1 days. 
+What could this indicate and what should I do?","I’m sorry you’re dealing with that sharp stomach pain. It can be stressful, especially when it feels severe and doesn’t improve in a day. Here are a few common possibilities—none of which is a ranking or diagnosis, just general areas that people often consider:
+
+| Possible cause | Typical clues |
+|----------------|---------------|
+| **Gastritis or stomach‑acid irritation** | Burning pain, may feel worse after eating or when lying flat; sometimes nausea or a sour taste in the mouth. |
+| **Intestinal blockage (e.g., constipation, impacted stool)** | Hard, infrequent stools, bloated feeling, cramping that may become more intense over the day. |
+| **Food poisoning / infection** | Often accompanied by nausea, vomiting, diarrhea, maybe a low‑grade fever; pain can flare up with bowel movements. |
+| **Appendicitis** | Pain usually starts near the belly button, moves to the lower right side; can be sharp and worsens with movement or coughing. |
+| **Kidney stones or urinary issues** | Pain can radiate from the flank toward the stomach and may feel like a heavy pressure or cramp. |
+| **Gallbladder inflammation (cholecystitis)** | Pain in the upper right abdomen; often after a fatty meal, may be associated with nausea. |
+| **Muscle strain or overexertion** | Pain is localized to a specific area, may improve with rest or stretching. |
+| **Pregnancy‑related changes** | If that’s a possibility, mild to moderate cramping can happen early on. |
+
+### What to do right now
+
+1. **Check for red‑flag signs**:  
+   - Fever > 100.4 °F (38 °C)  
+   - Persistent vomiting or inability to keep fluids down  
+   - Blood in vomit or stool  
+   - Severe abdominal tenderness that worsens when you press on it  
+   - Distention (swelling) of the belly  
+
+   If any of these are present, consider calling your doctor, urgent‑care center, or an emergency department promptly.
+
+2. **Self‑care while you decide**:  
+   - **Stay calm and rest**; strong movements or straining can worsen some types of pain.  
+   - **Heat is often soothing** for muscle‑related aches; a warm compress or heating pad over the abdomen may provide relief.  
+   - **Avoid heavy or greasy foods** today; stick to bland, easy‑to‑digest items (toast, rice, bananas).  
+   - **Hydrate**: sip small amounts of water or an oral rehydration solution if you’re feeling shaky.
+
+3. **Plan a check‑in**:  
+   - If the pain reduces, you can try a similar meal‑time schedule and observe for recurrence.  
+   - If it stays the same or worsens after 24–48 hours, or if new symptoms appear, schedule a call with a healthcare provider sooner rather than later.
+
+---
+
+I’m not a substitute for a clinician, so if anything feels alarming or if you’re uncertain, please reach out to a medical professional soon. Your health matters—don’t hesitate to get a physical exam or imaging if needed. Take care!",False
+2026-04-20T21:54:47.231811,70f39921-4d41-4dbb-90dd-9ab8990db389,patient,hii,"Hello! 🌼 How are you feeling today? Is there something on your mind—an appointment, a symptom, or just a quick health check? I’m here to chat and help out.",False
+2026-04-20T22:01:55.421111,f4e74eec-e0de-45de-aa1f-cd7805c356fb,patient,HEllo,Hey there! How can I help you today?,False
